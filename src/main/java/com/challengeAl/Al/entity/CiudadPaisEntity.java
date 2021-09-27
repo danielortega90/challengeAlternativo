@@ -1,0 +1,53 @@
+package com.challengeAl.Al.entity;
+
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+
+
+import com.sun.istack.NotNull;
+
+import lombok.Data;
+
+@Entity
+@Data
+@Table(name ="ciudad_pais")
+
+public class CiudadPaisEntity<IoconoGeogragicoAsociado, IoconoGeogragicoEntity, ContieneteEntity> {
+ @Id
+ @GeneratedValue(strategy = GenerationType.IDENTITY)
+ @Column(name = "id_ciudad_pais")
+ private Long idCiudadPais;
+ @Column
+ @NotNull
+ private String imgen;
+ @Column
+ @NotNull
+ private String denominacion;
+ @Column(name = "cant_habitante")
+ @NotNull
+ private Long cantHabitante;
+ @Column
+ @NotNull
+ private Double superficie;
+ @Column(name = "icon_geografic_aso")
+ @NotNull
+ private String iconGeograficosAsociado;
+ @OneToMany(mappedBy = "CiudadPaisEntity")
+ private List<IoconoGeogragicoEntity>icono;
+
+  @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+  @JoinColumn( name ="id_continente")
+  private ContieneteEntity contienente;
+}
